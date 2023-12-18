@@ -1,0 +1,147 @@
+.authApp {
+  background-color: orange !important;
+}
+
+#App {
+  background-color: var(--pageWrapper_background);
+  height: 100%;
+  width: 100%;
+  margin: 0 !important;
+}
+#App a:hover,
+#App a:active,
+#App a:focus {
+  text-decoration: none;
+  color: var(--maincolor);
+  outline: none;
+}
+#App h4 {
+  color: rgba(245, 245, 245, 0.774);
+  font-size: 18px;
+}
+#App a {
+  color: #ffffff;
+}
+#App input,
+#App button,
+#App a {
+  -moz-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+#App input:focus, #App input:active, #App input:hover,
+#App button:focus,
+#App button:active,
+#App button:hover,
+#App a:focus,
+#App a:active,
+#App a:hover {
+  outline: none;
+}
+#App input[type=file] {
+  height: auto;
+  padding: 6px 0.75rem;
+}
+#App input[type=text],
+#App input[type=password] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+#App input, #App select {
+  margin-top: 20px;
+  width: 330px;
+  padding: 12px 16px;
+  display: inline-block;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  background-color: transparent;
+  color: whitesmoke;
+  transition: border-color 0.2s;
+  border: transparent;
+  border-bottom: 1px solid rgb(118, 174, 219);
+}
+#App select option {
+  color: black;
+  background-color: grey;
+  height: 20px;
+}
+#App input:focus, #App select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  background-color: transparent;
+  color: white;
+}
+#App input:-webkit-autofill {
+  background-color: transparent !important;
+}
+#App .sidebar {
+  top: 0;
+  z-index: 1040;
+  background-color: var(--sidebar_background);
+  bottom: 0;
+  position: fixed;
+  left: 0;
+  transition: all 0.2s ease-in-out;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding-top: 5px;
+  box-shadow: 4PX 4px 4px 0px rgba(0, 0, 0, 0.25);
+  margin-top: var(--header_height);
+}
+#App .sidebar.big {
+  width: 230px;
+}
+#App .sidebar.small {
+  width: 70px;
+}
+#App .sidebar.opened, #App .header, #App .page_wrapper {
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  transition: all 0.2s ease-in-out;
+}
+#App .header {
+  background-color: var(--header_background);
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1039;
+  height: var(--header_height);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 0;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+}
+#App .page_wrapper {
+  padding: 0;
+  margin: 0;
+  background-color: var(--pageWrapper_background);
+  margin-top: var(--header_height);
+  margin-top: -30px;
+  padding: 110px 5% 10px 2%;
+  min-height: 100% !important;
+}
+#App .page_wrapper.big {
+  width: calc(100% - 230px);
+  margin-left: 220px;
+}
+#App .page_wrapper.small {
+  width: calc(100% - 70px);
+  margin-left: 60px;
+}
+#App .page_wrapper.auth {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+  background-color: var(--pageWrapper_background1) !important;
+}
+
+/*# sourceMappingURL=App.module.css.map */

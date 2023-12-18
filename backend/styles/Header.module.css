@@ -1,0 +1,87 @@
+#mainNav {
+  width: 100%;
+  height: 100%;
+  height: 70px;
+  margin-top: 2.5px;
+}
+#mainNav .logoimg, #mainNav .account {
+  width: auto;
+  height: 100%;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+#mainNav .logoimg {
+  float: left;
+  width: 200px;
+  margin-left: 50px;
+  font-family: Rosario;
+  font-weight: bold;
+  color: whitesmoke;
+  font-size: 25px;
+}
+#mainNav .logoimg:hover {
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--active_a);
+}
+#mainNav .logoimg:hover .logo .colored {
+  color: whitesmoke;
+  font-weight: bolder;
+}
+#mainNav .logoimg .logo {
+  width: 90%;
+  border-radius: 5px;
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: transparent !important;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+#mainNav .logoimg .logo .colored {
+  color: var(--active_a);
+}
+#mainNav .account {
+  float: right;
+  margin-right: 30px;
+  width: 220px !important;
+  overflow: hidden;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+#mainNav .account .user, #mainNav .account .form {
+  height: 90%;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+#mainNav .account .user {
+  float: left;
+  color: white;
+}
+#mainNav .account .user p {
+  margin-top: -5px;
+}
+#mainNav .account .user img {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+#mainNav .account .form {
+  float: right;
+}
+#mainNav .account button {
+  margin-left: 5px;
+}
+#mainNav .account button:hover {
+  cursor: pointer;
+  color: var(--active_a);
+}
+
+/*# sourceMappingURL=Header.module.css.map */

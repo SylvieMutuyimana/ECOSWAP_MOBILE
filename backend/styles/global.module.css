@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css?family=Rubik:400,500,700");
+:root {
+  --maincolor: #272238;
+  --maincolor_dark: #1D182C;
+  --maincolor_light: #2F2B3E;
+  --maincolor_verylight: #3E3A4C;
+  --maincolor_extralight: #272238;
+  --active_a: #0283E1;
+  --link_color: #6464F4;
+  --header_height: 75px;
+  --sideBig: 230px;
+  --sideSmall: 70px;
+  --yellowish: #FFB938;
+  --heading_color: #050407;
+  --button_back: #0283E1;
+  --header_background1: #272238;
+  --sidebar_background1: #272238;
+  --header_background: #270276;
+  --sidebar_background: #050407;
+  --pageWrapper_background1: #1D182C;
+  --pageWrapper_background: #CBD6D5;
+}
+
+button {
+  background-color: var(--button_back);
+  color: var(--heading_color);
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 120px;
+  margin-top: 20px;
+}
+button:hover {
+  opacity: 1;
+  border: 1px solid #023e69;
+  color: var(--pageWrapper_background) !important;
+  background-color: #023e69;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: "Rubik", sans-serif;
+  font-size: 0.875rem;
+  color: black;
+  background-color: var(--pageWrapper_background1);
+  height: 100%;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, h7 {
+  margin-top: 0;
+  color: var(--heading_color);
+}
+
+h1,
+.h1 {
+  font-size: 2.25rem;
+}
+
+h2,
+.h2 {
+  font-size: 1.875rem;
+}
+
+h3,
+.h3 {
+  font-size: 1.5rem;
+}
+
+h4,
+.h4 {
+  font-size: 1.125rem;
+}
+
+h5,
+.h5 {
+  font-size: 0.875rem;
+}
+
+h6,
+.h6 {
+  font-size: 0.75rem;
+  font-weight: normal;
+}
+
+a:hover,
+a:active,
+a:focus {
+  text-decoration: none;
+  color: #009ce7;
+  outline: none;
+}
+
+article {
+  float: left;
+}
+
+aside {
+  float: right;
+}
+
+table tr {
+  height: 50px;
+  margin-top: 10px !important;
+}
+table th {
+  font-weight: bold;
+}
+table thead {
+  height: 20px;
+  border-bottom: 1px solid gray;
+}
+
+/*# sourceMappingURL=global.module.css.map */
