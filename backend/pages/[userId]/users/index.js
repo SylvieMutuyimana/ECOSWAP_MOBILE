@@ -1,104 +1,64 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from '../../../styles/allPages/app_pages.module.css';
+import pageStyles from '../../../styles/allPages/specificPage.module.css';
 import componentStyles from '../../../styles/components.module.css';
-import { useRouter } from 'next/router';
 import Layout from './Layout';
+import Users from './users';
 
-const Home = ({ userType, facilityUsers, userId }) => {
-    const router = useRouter();
-    const [searchQuery, setSearchQuery] = useState('');
-    const [filteredUsers, setfilteredUsers] = useState(null);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        setfilteredUsers(facilityUsers);
-    }, [facilityUsers]);
-
-    useEffect(() => {
-        if (userType && userType === 'admin') {
-            router.push('/admin/dashboard');
-        }
-    }, []);
+const Home = ({ appData, userId }) => {
+    const types = (type) => type[0].toUpperCase() + type.substring(1).replaceAll('s', '')
+    const theTypes = ()=>{
+        const typpp_ = []
+        Object.keys(appData?.users).map((type,index)=>{
+            if(type !== 'all'){
+                typpp_.push({name: types(type),id_: type});
+            }
+        }); return typpp_
+    }
+        
+    const [theUsers, setUsers] = useState(null);
+    const [typeName, setTypeName] = useState(null);
     
-    useEffect(()=>{
-        const filtered = facilityUsers?.filter(user => {
-            return user.name.toLowerCase().includes(searchQuery.toLowerCase());
-        });
-        if (filtered && filtered.length > 0) {
-            setfilteredUsers(filtered);
-            setError(null);
-        } else {
-            setError("No matching users found");
-        }
-    },[searchQuery])
-    useEffect(()=>{
-        const filtered = facilityUsers?.filter(user => 
-            user.name.toLowerCase().includes(searchQuery.toLowerCase())
-            || user.email.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-        if (filtered && filtered.length > 0) {
-            setfilteredUsers(filtered);
-            setError(null);
-        } else {
-            setfilteredUsers(null)
-            setError("No matching transfers found");
-        }
-    },[searchQuery])
-
-    const handleSearch = (e) => {
-        setSearchQuery(e.target.value);
+    const handleselected = (_id) => {
+        setTypeName(_id);
+        setUsers(appData?.users?.[_id])
     };
+    
+    const removeselected = () => {
+        setTypeName(null);
+        setUsers(null);
+    };
+    
     return (
-        <Layout userId={userId} add_route = '/users/add' main_page = 'true' page_name = 'Users List'>
-            <div className={styles.SearchBar}>
-                        <input
-                            type="text"
-                            placeholder="Search by name or email"
-                            value={searchQuery}
-                            onChange={handleSearch}
-                        />
-            </div>
-            <div className={`${styles.page} ${styles.index}`}>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Names</th>
-                                    <th>ID Number</th>
-                                    <th>Phone</th>
-                                    <th>Insurance</th>
-                                </tr>
-                                <tr><td colSpan='4'><hr/></td></tr>
-                            </thead>
-                            <tbody>
-                                {facilityUsers &&(
-                                    filteredUsers && filteredUsers.length >0?(
-                                        filteredUsers.map((user) => (
-                                            <tr key={user.id}>
-                                                <td>
-                                                    <p>{user.name}</p>
-                                                    <p>{user.email}</p>
-                                                </td>
-                                                <td>{user.nationalId}</td>
-                                                <td>{user.phoneNum}</td>
-                                                <td>{user.insurance}</td>
-                                            </tr>
-                                        ))
-                                    ):(
-                                        <tr><td colSpan='4'>
-                                            {error? error : 'No users available'}
-                                        </td></tr>
-                                    )
-                                )}
-                            </tbody>
-                        </table>
-            </div>
-            <div className={componentStyles.pageNav}>
-                <article>
-                    Previous
-                </article>
-                <aside>
-                    Next
-                </aside>
+        <Layout userId={userId} add_route="/users/add" page_name={typeName ? null : 'Users List'}>
+            {typeName && (
+                <div>
+                    <button onClick={() => removeselected()} className={componentStyles.back}>
+                        <i className="fas fa-arrow-left"></i> {'  '}back
+                    </button>
+                </div>
+            )}
+            <div className={`${styles.page} ${typeName ? styles.specific : styles.index}`}>
+                {
+                    typeName ? (
+                        <div className={pageStyles.thePage}>
+                            <Users theUsers={theUsers} userId={userId} typeName={typeName} types={types}/>
+                        </div>
+                    ) : (
+                        <div className={componentStyles.categoriesGrid}>
+                            {theTypes() && theTypes().length > 0 ? (
+                                theTypes().map(user_Type => (
+                                <div key={user_Type.id_} className={componentStyles.card} onClick={() => handleselected( user_Type.id_)}>
+                                    <h4>{user_Type.name}s</h4>
+                                    <p>No of users: {appData?.users?.[user_Type.id_].length}</p>
+                                </div>
+                                ))
+                            ) : (
+                                <div>No users available</div>
+                            )}
+                        </div>
+                    )
+                }
             </div>
         </Layout>
     );

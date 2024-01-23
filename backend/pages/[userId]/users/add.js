@@ -6,17 +6,24 @@ import Layout from './Layout';
 import { post_url } from '../../../components/navigation/routes';
 
 const grid_name = 'user'
-const AddUsers = ({userId}) => {
-    const all_specialisations = ['General', 'Gynocology','other']
-    const hospitalId= '64f84aec97e2b9e0c45f8fe1'
+const AddUsers = ({userId, appData}) => {
+    const user_types = ()=>{
+        const types = []
+        Object.keys(appData?.users).map(typ_=>{
+            if(typ_ !=='all'){
+                types.push(typ_[0].toUpperCase() + typ_.substring(1).replaceAll('s', ''))
+            }
+        })
+        return types
+    }
     const [error, setError] = useState(null);
     const [user, setUser] = useState({
-        matriculation: {type:Number, value:'', text: 'Matriculation Number'},
         firstName: {type:String, value:'', text: 'First Name'},  
         lastName: {type:String, value:'', text: 'Last Name'},  
+        email: {type:'email', value:'', text: 'Email'},
         PhoneNumber: {type:Number, value:'',text: 'Phone Number'}, 
-        designation: {type:"select", options: all_specialisations, value:'',text: 'Specialised in'}, 
-        schedule: {type:String, value:'',text: 'Schedules'}, 
+        type: {type:"select", options: user_types(), value:'',text: 'User type'}, 
+        password: {type:'password', value:'', text: 'Password'},
     });
 
     const handleChange = (e) => {
@@ -74,7 +81,6 @@ const AddUsers = ({userId}) => {
                                             }
                                         </div>
                                     )
-
                                 }
                             })
                         }

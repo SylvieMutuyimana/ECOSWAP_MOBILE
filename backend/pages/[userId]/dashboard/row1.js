@@ -6,7 +6,7 @@ const Row1 = ({row1Data}) => {
     const items = {
         'one': {name:'All Items', value : row1Data.items, icon: 'fa fa-car'},
         'two': {name: 'All Categories', value : row1Data.categories,  icon: 'fa fa-user'},
-        'three': {name: 'All Purchases', value : row1Data.purchases, icon: 'fa fa-users'},
+        'three': {name: 'All Purchases', value : row1Data.sold_items, icon: 'fa fa-users'},
         'four': {name:'All Users', value : row1Data.users, icon: 'fa fa-road'}
     }    
 

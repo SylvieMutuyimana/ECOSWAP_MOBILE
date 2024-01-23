@@ -1,10 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Rubik:400,500,700");
 :root {
-  --maincolor: #272238;
-  --maincolor_dark: #1D182C;
-  --maincolor_light: #2F2B3E;
-  --maincolor_verylight: #3E3A4C;
-  --maincolor_extralight: #272238;
   --active_a: #0283E1;
   --link_color: #6464F4;
   --header_height: 75px;
@@ -12,18 +7,25 @@
   --sideSmall: 70px;
   --yellowish: #FFB938;
   --heading_color: #050407;
-  --button_back: #0283E1;
-  --header_background1: #272238;
-  --sidebar_background1: #272238;
-  --header_background: #270276;
-  --sidebar_background: #050407;
-  --pageWrapper_background1: #1D182C;
-  --pageWrapper_background: #CBD6D5;
+
+  --maincolor: #223824;
+  --maincolor_dark: #182c18;
+  --maincolor_light: #2b3e2d;
+  --maincolor_verylight: #3b4c3a;
+  --maincolor_extralight: #233822;
+  --button_back: #137902;
+  --header_background1: rgb(34, 56, 36);
+  --sidebar_background1: #233822;
+  --header_background: #0a3105;
+  --sidebar_background: #040704;
+  --pageWrapper_background1: #182c19;
+  --pageWrapper_background: #D2BD96;
+  --pageWrapper_background2: #CBD6D5;
 }
 
 button {
   background-color: var(--button_back);
-  color: var(--heading_color);
+  color: black;
   height: 40px;
   border: none;
   border-radius: 5px;
@@ -46,6 +48,7 @@ body {
   font-family: "Rubik", sans-serif;
   font-size: 0.875rem;
   color: black;
+  background-color: var(--header_background);
   background-color: var(--pageWrapper_background1);
   height: 100%;
   overflow-x: hidden;
@@ -93,6 +96,7 @@ a:focus {
   text-decoration: none;
   color: #009ce7;
   outline: none;
+  cursor: pointer;
 }
 
 article {
@@ -114,5 +118,3 @@ table thead {
   height: 20px;
   border-bottom: 1px solid gray;
 }
-
-/*# sourceMappingURL=global.css.map */

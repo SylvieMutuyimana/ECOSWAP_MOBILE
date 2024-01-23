@@ -1,5 +1,6 @@
+import Link from 'next/link';
 import styles from '../../styles/sidebar.module.css';
-import { AppPages, SidebarPages } from './page_links';
+import { SidebarPages } from './page_links';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -28,11 +29,11 @@ const Sidebar = ({sidebarOpen,toggleSidebar,userDetails, userId}) => {
             <i className={sidebarOpen ? "fa fa-angle-double-left": "fa fa-angle-double-right"}/>
           </span>
         </li>
-        {sidebar_pages.map((page) => {
+        {sidebar_pages?.map((page) => {
           if (page.submenu) {
             return (
               <li key={page.path} className={styles.submenu}>
-                <a href='#' onClick={handleLinkClick}>
+                <Link href='#' onClick={handleLinkClick}>
                   <i className={page.icon}></i>
                   <div className={styles.right}>
                     <span style={{ display: sidebarOpen ? 'block' : 'none' }}>
@@ -40,19 +41,19 @@ const Sidebar = ({sidebarOpen,toggleSidebar,userDetails, userId}) => {
                     </span>
                     <i className={`fas ${page.icon_drop} the_dropdown`}></i>
                   </div>
-                </a>
+                </Link>
                 <ul>
                   {page.submenu.map((subpage) => (
                     <li key={subpage.path}
                       className={subpage.path === router.pathname ? 'active' : ''}
                       onClick={(event) => closeSidebar(event)}
                       >
-                      <a href={the_link(subpage.path)}>
+                      <Link href={the_link(subpage.path)}>
                         <i className={`fas ${subpage.icon}`}></i>
                         <span style={{ display: sidebarOpen ? 'block' : 'none' }}>
                           {subpage.linkText}
                         </span>
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -60,16 +61,15 @@ const Sidebar = ({sidebarOpen,toggleSidebar,userDetails, userId}) => {
             );
           } else {
             return (
-              <li
-                key={page.path}
+              <li key={page.path}
                 className={page.path === router.pathname ? 'active' : ''}
                 onClick={(event) => closeSidebar(event)}>
-                <a href={the_link(page.path)}>
+                <Link href={page.name==='Website'? page.path: the_link(page.path)}>
                   <i className={page.icon}></i>
                   <span style={{ display: sidebarOpen ? 'block' : 'none' }}>
                     {page.linkText}
                   </span>
-                </a>
+                </Link>
               </li>
             );
           }

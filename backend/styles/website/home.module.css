@@ -1,0 +1,68 @@
+#Home {
+    width: 101.3%;
+    margin-top: -8px;
+    margin-left: -8px;
+}
+#Home a{
+    color: #010141 !important;
+}
+#Home a:hover{
+    color: #111142 !important;
+    font-style: italic;
+}
+#Home section, #Home div{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+#Home .section{
+    width: 85% !important;
+    margin-left: 2.5%;
+    margin-bottom: 15px !important;
+    padding: 15px 5%;
+    height: 200px !important;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #4e4e4e52;
+}
+
+#Home .section h3{
+    height: 5% !important;
+}
+#Home .section .hr{
+    height: 1px !important;
+    border: 1px solid #1b1b1b4d;
+    background-color: #1b1b1b3b;
+    width: 80% !important;
+    margin-left: 10% !important;
+}
+
+#Home .section.home{
+    background-color: #1b1b1b !important;
+    height: 500px !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-bottom: 1px solid var(--header_background) !important;
+}
+#Home .section.about{
+    /*
+    background-color: yellow;
+    */
+}
+#Home .section.contact{
+    background-color: rgba(153, 205, 50, 0.534);
+    height: 350px !important;
+}
+#Home .section.involved{
+    /*
+    background-color: purple;
+    */
+}
+#Home .section.mission{
+    /*
+    background-color: indigo;
+    */
+}

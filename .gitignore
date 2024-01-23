@@ -1,11 +1,9 @@
+#BACKEND
 # Ignore the node_modules directory
 backend/node_modules/
 
 # Ignore the .next directory (built files)
 backend/.next/
-
-# Ignore the .env.local file (environment variables)
-backend/.env.local
 
 # Ignore log files and other local server files
 backend/*.log
@@ -15,9 +13,6 @@ backend/*.lock
 # Ignore OS-generated files
 backend/.DS_Store
 backend/Thumbs.db
-
-# Ignore environment files
-backend/.env
 
 # Ignore the out directory (used for static site export)
 backend/out/
@@ -45,7 +40,6 @@ backend/.idea/
 backend/.DS_Store
 
 # Ignore local .env files
-backend/.env.local
 backend/.env.development.local
 backend/.env.test.local
 backend/.env.production.local
@@ -55,3 +49,51 @@ backend/.eslintcache/
 
 # Ignore the .now directory for Zeit Now deployments
 backend/.now/
+
+
+#FRONTEND
+
+# Miscellaneous
+flutter_mobile/*.class
+flutter_mobile/*.log
+flutter_mobile/*.pyc
+flutter_mobile/*.swp
+flutter_mobile/.DS_Store
+flutter_mobile/.atom/
+flutter_mobile/.buildlog/
+flutter_mobile/.history
+flutter_mobile/.svn/
+flutter_mobile/migrate_working_dir/
+
+# IntelliJ related
+flutter_mobile/*.iml
+flutter_mobile/*.ipr
+flutter_mobile/*.iws
+flutter_mobile/.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+flutter_mobile/.dart_tool/
+flutter_mobile/.flutter-plugins
+flutter_mobile/.flutter-plugins-dependencies
+flutter_mobile/.packages
+flutter_mobile/.pub-cache/
+flutter_mobile/.pub/
+flutter_mobile//build/
+
+# Symbolication related
+flutter_mobile/app.*.symbols
+
+# Obfuscation related
+flutter_mobile/app.*.map.json
+
+# Android Studio will place build artifacts here
+flutter_mobile/android/app/debug
+flutter_mobile/android/app/profile
+flutter_mobile/android/app/release

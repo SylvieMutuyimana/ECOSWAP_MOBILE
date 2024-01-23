@@ -1,29 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Loading } from '../components/navigation/loadingPage';
-import Login from './authentication/login';
-
-const Index = ({ userDetails, userId, setUserDetails, setUserID }) => {
+import { RotatingPage } from '../components/navigation/rotatingPage';
+import WebHomepage from './web';
+const Index = ({ userDetails, userId, loading, setLoading, webPage}) => {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     console.log('4444444')
     setTimeout(() => {
       setLoading(false);
-      console.log("the userDetails: ", userDetails)
-      if (userDetails && userDetails != '' && userDetails.type) {
+      if (userDetails && userDetails != '' && userDetails.type && !webPage){
         router.push(`/${userId}`);
-      } 
+      }
     }, 2000); 
-  }, [userDetails]);
+  }, [userDetails, userId]);
 
   return (
     <>
       {loading ? (
-        <>{Loading()}</>
+        <>{RotatingPage()}</>
       ) : (
-        <Login setLoading={setLoading} setUserDetails={setUserDetails} setUserID={setUserID}/>
+        <WebHomepage/>
       )}
     </>
   );

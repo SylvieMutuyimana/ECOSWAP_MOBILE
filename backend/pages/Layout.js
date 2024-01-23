@@ -4,26 +4,19 @@ import { useRouter } from 'next/router';
 import Header from '../components/navigation/Header';
 import Sidebar from '../components/navigation/Sidebar';
 import styles from '../styles/App.module.css';
+import Footer from '../components/navigation/footer';
 
-export default function AppLayout({ children, userDetails, setUserDetails, userId}) {
+export default function AppLayout({children, userDetails, setUserDetails, userId, webPage, authPage}){
   const router = useRouter();
   const {pathname} = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [authPage, setAuthPage] = useState(false);
-  useEffect(() => {
-    setAuthPage(pathname==='/');
-  }, [pathname]);
+
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 1000) {
-        setSidebarOpen(false);
-      }
-    };
-
+    const handleResize = () => window.innerWidth <= 1000 ? setSidebarOpen(false):('')
     if (typeof window !== 'undefined') {
       window.addEventListener('resize', handleResize);
     }
@@ -40,43 +33,70 @@ export default function AppLayout({ children, userDetails, setUserDetails, userI
     }
   }, [pathname]);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (window.innerWidth <= 1000) {
-        setSidebarOpen(false);
-      }
-    }
-  }, []);
+  console.log('webPage on layout: ', webPage)
+  console.log('authPage on layout: ', authPage)
+  const headerSection = ()=>{
+    return(
+      <header className={styles.header} >
+        <Header userDetails={userDetails} sidebarOpen={sidebarOpen} setUserDetails={setUserDetails} 
+          webPage={webPage} userId={userId}
+        />
+      </header>
+    )
+  }
+  const footerSection = ()=>{
+    return(
+      <footer className={styles.footer} >
+        <Footer userDetails={userDetails} sidebarOpen={sidebarOpen} setUserDetails={setUserDetails} 
+          webPage={webPage} userId={userId}
+        />
+      </footer>
+    )
+  }
+  const articleSection = ()=>{
+    return(
+      <>
+        <article className={
+          `${styles.page_wrapper} 
+          ${authPage? styles.auth:(webPage? styles.web: (sidebarOpen ? styles.big : styles.small))} 
+        `} >
+          {children}
+        </article>
+      </>
+    )
+  }
+  const asideSection = ()=>{
+    return(
+      <aside className={`${styles.sidebar} ${sidebarOpen? styles.big: styles.small}`} id={styles.sidebar} >
+        <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}
+          userDetails={userDetails} userId ={userId}
+        />
+      </aside>
+    )
+  }
+
   return (
     <>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <title>EcoSWAP</title>
       </Head>
-      <section id={styles.App} className={authPage? styles.authApp : ''} style={pathname === '' ? { backgroundColor: 'green' } : {}}>
-        {!authPage && (
-          userDetails ? ( 
+      <section id={styles.App} className={authPage? styles.authApp : webPage? styles.webApp:''}>
+        {
+          webPage?(
             <>
-              <header className={styles.header} >
-                <Header userDetails={userDetails} sidebarOpen={sidebarOpen} setUserDetails={setUserDetails}/>
-              </header>
-              <aside className={`${styles.sidebar} ${sidebarOpen? styles.big: styles.small}`} id={styles.sidebar} >
-              < 
-                Sidebar 
-                sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}
-                userDetails={userDetails}
-                userId ={userId}
-              />
-              </aside>
+              {headerSection()} {articleSection()} {footerSection()}
             </>
-          ):<></>
-        )}
-        <article className={
-          `${styles.page_wrapper} 
-          ${authPage? styles.auth: (sidebarOpen ? styles.big : styles.small)} 
-        `} >
-          {children}
-        </article>
+          ):(
+            authPage?(
+              <>{articleSection()}</>
+            ):(
+              <>
+                {headerSection()} {asideSection()} {articleSection()}
+              </>
+            )
+          )
+        }
       </section>
     </>
   );

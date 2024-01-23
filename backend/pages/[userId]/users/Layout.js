@@ -1,12 +1,12 @@
-import FacilityLayout from '../Layout';
+import Page_Layout from '../Layout';
 export default function Layout({ children, add_route, userId, main_page, page_name}) {
     const pageName = 'Users'
     return (
-        <FacilityLayout name={pageName} add_route={add_route}
+        <Page_Layout name={pageName} add_route={add_route}
             pageName = {pageName} userId={userId} main_page={main_page}
             page_name ={page_name}
         >
             {children}
-        </FacilityLayout>
+        </Page_Layout>
     );
 };

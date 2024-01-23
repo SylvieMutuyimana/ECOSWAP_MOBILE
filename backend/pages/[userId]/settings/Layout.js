@@ -4,19 +4,15 @@ import AddButton from '../../../components/pages/add_button';
 
 export default function Layout({ children, add_route, userId, main_page }) {
     const name = 'Settings'
-    const add_page = (route) => `/facility/${userId}/${route}`;
+    const add_page = (route) => `${userId}/${route}`;
 
     return (
         <section id={pageStyles.PageLayout}>
-            <div id={styles[name]}>
+            <div id={styles.Settings}>
                 {main_page ? (
                     <>
                         {name && (
-                            name === 'Settings' ? (
-                                <>{AddButton(add_page(add_route), name, main_page, add_page('settings/newAdmin'))}</>
-                            ) : (
-                                <>{AddButton(add_page(add_route), name, main_page)}</>
-                            )
+                            <>{AddButton(add_page(add_route), name, main_page)}</>
                         )}
                         <br />
                         {children}
@@ -24,7 +20,7 @@ export default function Layout({ children, add_route, userId, main_page }) {
                 ) : (
                     <>
                         <div className={styles.add}>
-                            {AddButton(add_page, name)}
+                            {AddButton(add_page(add_route), name)}
                             <br />
                             {children}
                         </div>

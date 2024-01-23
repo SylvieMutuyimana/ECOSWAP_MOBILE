@@ -1,3 +1,13 @@
+.back{
+  background-color: #8080802d !important;
+  border: 1px solid grey;
+  color: black;
+  margin-left: 20px !important;
+}
+.back:hover{
+  background-color: #8080805e !important;
+  color: rgb(1, 1, 37) !important;
+}
 .logoimg {
   width: 180px;
   height: 80px;
@@ -9,6 +19,9 @@
   color: whitesmoke;
   font-size: 25px;
   margin-bottom: 20px;
+}
+.logoimg.header{
+  height: 50px !important;
 }
 .logoimg .logo {
   width: 100%;
@@ -23,6 +36,15 @@
 }
 .logoimg .logo .colored {
   color: var(--active_a);
+}
+.logoimg:hover {
+  font-size: 25px;
+  cursor: pointer;
+  color: var(--active_a);
+}
+.logoimg:hover .logo .colored {
+  color: whitesmoke;
+  font-weight: bolder;
 }
 
 #PageLayout {
@@ -39,7 +61,7 @@
 }
 #PageLayout table tbody tr:hover {
   cursor: pointer;
-  font-weight: bold !important;
+  color: var(--button_back);
 }
 
 .pageNav {
@@ -70,4 +92,67 @@
   border-left: 1px solid grey !important;
 }
 
-/*# sourceMappingURL=components.module.css.map */
+.categoriesGrid{
+  background-color: red;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  height: auto !important;
+}
+
+.categoriesGrid .card{
+  float: left;
+  width: 25%; height: 80px !important;
+  padding: 30px 2.5% !important;
+  margin-left: 2% !important;
+  border-radius: 8px !important;
+  background-color:#ffffff96;
+  border: 1px solid #24242493;
+}
+.categoriesGrid .card.four{
+  width: 18%; 
+  padding: 30px 2.5% !important;
+  margin-left: 2% !important;
+  border-radius: 8px !important;
+  background-color:#ffffff96;
+  border: 1px solid #24242493;
+}
+.categoriesGrid .card h4{
+  color: #242424 !important;
+}
+.categoriesGrid .card:hover{
+  background-color:#ffffff7e;
+  border: 1px solid #032403dc;
+  cursor: pointer;
+}
+.categoriesGrid .card:nth-child(n+4){
+  margin-top: 30px !important;
+}
+.categoriesGrid .card.four{
+  margin-top: 0 !important;
+}
+.categoriesGrid .card.four:nth-child(n+5){
+  margin-top: 30px !important;
+}
+.categoriesGrid .card:nth-child(1), .categoriesGrid .card:nth-child(4),
+.categoriesGrid .card:nth-child(7), .categoriesGrid .card:nth-child(10){
+  /*n%3 +1*/
+  margin-left: 0 !important;
+}
+
+.categoriesGrid .card.four:nth-child(4),.categoriesGrid .card.four:nth-child(7), 
+.categoriesGrid .card.four:nth-child(10){
+  /*n%3 +1*/
+  margin-left: 2% !important;
+}
+.categoriesGrid .card.four:nth-child(1), .categoriesGrid .card.four:nth-child(5),
+.categoriesGrid .card.four:nth-child(9), .categoriesGrid .card.four:nth-child(13){
+  /*n%4 +1*/
+  margin-left: 0 !important;
+}
+
+.categoriesGrid .card.selectedCategory{
+  background-color:#5e59592d;
+
+}

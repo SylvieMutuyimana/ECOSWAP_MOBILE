@@ -29,10 +29,10 @@ const Edit = ({ userId }) => {
         });
     };
     const all_placeholders = {
-        name: 'FACILITY NAME', street: 'STREET NAME' ,
-        postalCode: 'POSTAL CODE', email: 'frontoffice@facilityname.com',
+        name: 'ecoSWAP NAME', street: 'STREET NAME' ,
+        postalCode: 'POSTAL CODE', email: 'frontoffice@ecoswap.com',
         phoneNumber: '078*******', mobileNumber: '078*******',
-        fax: 'FAX NUMBER',website: 'www.facility.com',
+        fax: 'FAX NUMBER',website: 'www.ecoswap.com',
     }
     const the_placeholder = (name) =>{
         if(userDetails[name]){
@@ -46,10 +46,10 @@ const Edit = ({ userId }) => {
             <div className={styles.all_settings}>
                 <div className={styles.theDetails}>
                 <form>
-                    <h3>Facility Settings</h3>
+                    <h3>ecoSWAP Settings</h3>
                     <article>
                         <label>
-                            <p>Facility Name <span>*</span></p>
+                            <p>Name <span>*</span></p>
                             <input type="text" value={userDetails.name} name="name" onChange={handleChange}  placeholder={the_placeholder('name')}/>
                         </label>
                         <label>

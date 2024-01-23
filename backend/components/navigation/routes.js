@@ -1,10 +1,14 @@
-export const frontendhost = 'localhost:3000';
-export const backendhost = 'localhost:3000';
+export const the_url = 'localhost:3000'
+export const mobileApphost = the_url
+export const websiteHost = the_url
+//export const backendAppHost =(userId) = the_url + '/' + userId 
+export const apiHost = the_url + '/api'
 
-const host_routes = {
+export const host_routes = {
     'bookings': 'bookings', 'drivers':'drivers', 'employees': 'employees',
     'expenses': 'expenses', 'fuel': 'fuel', 'reminders': 'reminders',
-    'users':'users', 'vehicleGroups': 'vehicleGroups', 'vehicles': 'vehicles'
+    'users':'users', 'vehicleGroups': 'vehicleGroups', 'vehicles': 'vehicles',
+    'organisation': 'organisation'
 }
-
-export const post_url = (endpoint)=> backendhost + '/api/' + host_routes[Object.keys(host_routes).find(key => key === endpoint)] 
+export const post_url = (endpoint)=> apiHost + host_routes[Object.keys(host_routes).find(key => key === endpoint)] 
+export const get_url = (endpoint)=> apiHost + endpoint

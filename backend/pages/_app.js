@@ -4,109 +4,116 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import '../styles/global.css';
 import AppLayout from './Layout';
-import axios from 'axios';
-import {theRoutes} from '../components/data/routes';
 import {getUserFromLocalStorage} from '../components/localStorage';
-import { Loading } from '../components/navigation/loadingPage';
-import { backendhost, frontendhost } from '../components/navigation/routes';
-import { startComponents_ } from './some_components';
+import { RotatingPage } from '../components/navigation/rotatingPage';
+import {startComponents_ } from '../components/sampledata/some_components_';
 
 function App({ Component, pageProps }) {
-  const starting_Components = startComponents_()
   const router = useRouter()
   const { pathname } = useRouter();
+  console.log('pathname:', pathname)
+  const starting_Components = startComponents_
   const [userDetails, setUserDetails] = useState(null);
   const [userId, setUserID] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [loadingData, setLoadingData] = useState(true);
+  const returnPath = (the_name)=> AppPages.find(page=>page.name === the_name)?.path
   /*const [appData, setappData] = useState({
-    purchases: 'nullData', items: 'nullData', users: 'nullData',
-    categories: 'nullData'
+    all_items: 'nullData', sold_items: 'nullData', un_sold_items: 'nullData',
+    categories: 'nullData', users: 'nullData'
   })
+  const [orgDetails, setOrgDetails] = useState(org_details)
   */
   const [appData, setappData] = useState(starting_Components)
-
-  const setEndpointData = async()=>{
-    try {
-      const the_route = `http://localhost:3000/api/${endpoint}`
-      const response = await axios.get(the_route);
-      if (response.status === 200) {
-        const the_data = response.data
-        setappData(prev=> ({...prev, [endpoint]: the_data}))
+  const [orgDetails, setOrgDetails] = useState(starting_Components.organisation)
+  const indexPage= ['/', '']
+  const authLinks= ['Login', 'Signup']
+  const anAuthPage =()=>{
+    let status
+    authLinks.map((name, index)=>{
+      if(returnPath(name)===pathname){
+        status= true
       }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  const fetchData = () => {
-    theRoutes.map(endpoint=>{
-      setEndpointData(endpoint)
-      console.log('endpoint: ',endpoint)
+      if(!status && index===authLinks.length-1){
+        status = false
+      }
     })
-  };
+    return status
+  }
+  const the_webpage = () => indexPage.some(path=>path===pathname)
+  const [authPage, setAuthPage] = useState(anAuthPage());
+  const [webPage, setwebPage] = useState(the_webpage());
+  const missing_data = ()=>{
+    if(!appData.all_items || !appData.sold_items || !appData.unsold_items || !appData.categories || 
+      !appData.users || !appData.wishlist|| !appData.cart|| !appData.purchases|| !appData.organisation){
+        return true
+    }else{return false}
+  }
+  
+  useEffect(() => {
+    setAuthPage(anAuthPage());
+    setwebPage(the_webpage());
+  },[pathname]);
 
   useEffect(()=>{
-    console.log('11111111')
-    if(!appData.purchases || !appData.items || !appData.users || !appData.categories) {
-        if(!loadingData){setLoadingData(true)}
-    }else if(loadingData){setLoadingData(false)}
-  },[appData.purchases, appData.users, appData.items, appData.categories])
+    console.log('checking data existence')
+    const missing__ = missing_data()
+    setLoadingData(missing__)
+  },[loadingData])
 
   useEffect(() => {
-    console.log('222222222')
-    const the_user = getUserFromLocalStorage('logged_ECOSWAP_user');
-    const loginPage = AppPages.find(page => page.name === 'Login').path;
-    if (!the_user && !pathname.endsWith(loginPage)) {
-      console.log('22112211221122112211')
-      router.push(loginPage)
-    } else {
-      console.log('333444333444333')
-      console.log('the_user:  ', the_user)
-      console.log('userDetails:  ', userDetails)
+    console.log('checking user details')
+    const the_user = getUserFromLocalStorage();
+    if(the_user) {
+      console.log('user details exist')
       if(!userDetails && the_user){
-        console.log('556655665566')
+        console.log('authenticating user')
         setUserDetails(the_user)
         setUserID(the_user._id)
       }
+    }else if (pathname!== !anAuthPage) {
+      console.log('authentication page')
+      router.push('')
     }
-  },[pathname, userId, userDetails]);
+  },[pathname, userDetails]);
 
   useEffect(()=>{
-    console.log('3333333')
+    console.log('checking loading')
     if(loadingData && userId && userDetails){
-      if(!appData.purchases || !appData.users  || !appData.items || !appData.categories) {
-        fetchData()
-      }else{
-        setLoadingData(false)
-      }
+      //const the_data = fetchData()
+      const the_data = starting_Components
+      setappData(the_data)
+      setOrgDetails(the_data.organisation)
     }
-  },[loadingData, userId, userDetails])
-
-  console.log('pathname', pathname)
+  },[loadingData, userDetails, userId])
+  console.log('orgDetails: ', orgDetails)
   return (
-    <AppLayout userDetails={userDetails} userId={userId} 
-      setUserDetails={setUserDetails} 
+    <AppLayout userDetails={userDetails} userId={userId} webPage={webPage}
+      setUserDetails={setUserDetails} authPage={authPage} setAuthPage={setAuthPage}
     >
       <section className={styles.content}>
-        {(pathname === '' || pathname === '/')?(
+        {webPage || authPage?(
           <Component
             {...pageProps}
-            backendhost={backendhost}
             userDetails={userDetails}
             setUserDetails = {setUserDetails}
             setUserID = {setUserID}
             userId={userId}
+            loading ={loading}
+            setLoading={setLoading}
+            webPage={webPage}
+            orgDetails={orgDetails}
           />
         ):(
           <>
             {loadingData ? (
-              <>Fetching Data{Loading()}</>
+              <>Fetching Data{RotatingPage()}</>
             ) : (
               <Component
                 {...pageProps}
-                backendhost={backendhost}
                 userDetails={userDetails}
                 userId={userId}
+                orgDetails={orgDetails}
                 appData={appData}
               />
             )}
