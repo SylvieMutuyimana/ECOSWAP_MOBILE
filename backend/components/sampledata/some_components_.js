@@ -8,6 +8,7 @@ export const startComponents_ = {
     users: {admins:theUsers_().admins, buyers:theUsers_().buyers,sellers:theUsers_().sellers, all:theUsers_().all},
     wishlist: items_wish().wishlist, cart: items_wish().cart, purchases: items_wish().purchases, 
     organisation : {
+        name: 'EcoSWAP',
         email:'contact@eco-swap.com',
         social: {
             Instagram:{username:'eco-swap', link:'www.instagram.com/eco-swap'},

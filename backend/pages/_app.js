@@ -86,7 +86,6 @@ function App({ Component, pageProps }) {
       setOrgDetails(the_data.organisation)
     }
   },[loadingData, userDetails, userId])
-  console.log('orgDetails: ', orgDetails)
   return (
     <AppLayout userDetails={userDetails} userId={userId} webPage={webPage}
       setUserDetails={setUserDetails} authPage={authPage} setAuthPage={setAuthPage}

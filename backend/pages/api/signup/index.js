@@ -27,6 +27,14 @@ export default async function Signup(req, res) {
                         };
                         newUserData['email'] = req.body['email'];
                         newUserData['type'] = req.body['type'];
+                        newUserData['phoneNumb'] = req.body['phoneNumb'];
+                        newUserData['firstName'] = req.body['firstName'];
+                        newUserData['lastName'] = req.body['lastName'];
+                        newUserData['doneOn'] = new Date();
+                        if(req.body['type'] === 'buyer'){
+                            newUserData['cart'] = req.body['cart']||[];
+                            newUserData['wishlist'] = req.body['wishlist']||[];
+                        }
                         const hashedPassword = await bcrypt.hash(req.body['password'], 10);
                         if (hashedPassword) {
                             newUserData['password'] = hashedPassword;
@@ -47,17 +55,7 @@ export default async function Signup(req, res) {
             }
         } catch (error) {
             return res.status(500).json({
-                message: 'Error creating the item',
-                error: error.message
-            });
-        }
-    } else if (req.method === "GET") {
-        try {
-            const items = await User.find({}).sort({ doneOn: -1 });
-            return res.status(200).json(items);
-        } catch (error) {
-            return res.status(500).json({
-                message: `Error retrieving items`,
+                message: 'Error signing up the user',
                 error: error.message
             });
         }

@@ -7,8 +7,10 @@ const itemsSchema = new mongoose.Schema(
       amount: {type:String, required: true,},
       category: {type:String, required: true,},
       seller: {type:String, required: true,}, 
+      buyer: {type:String, required: true,}, 
       description: { type: String, required: true },
       status: { type: String, required: true },
+      added_date: { type: Date, default: Date.now, }, 
       doneOn: { type: Date, default: Date.now, }, 
     },
   { timestamps: true }

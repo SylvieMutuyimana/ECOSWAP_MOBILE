@@ -1,31 +1,18 @@
 import { useEffect, useState } from 'react';
 import styles from '../../../styles/allPages/app_pages.module.css';
 import componentStyles from '../../../styles/components.module.css';
-import { useRouter } from 'next/router';
 import Layout from './Layout';
 import { setLocalStorageProp_ } from '../../../components/localStorage';
-import { AppPages } from '../../../components/navigation/page_links';
 import Image from 'next/image';
-const Home = ({ userType, appData , userId}) => {
-    const router = useRouter();
-    const {pathname} = useRouter()
+import { ReturnItem } from './itemId';
+const Home = ({appData , userId}) => {
     const [searchQuery, setSearchQuery] = useState(null);
     const [filteredItems, setFilteredItems] = useState(null);
     const [chosenItems, setChosenItems] = useState('all_items')
     const allItems = appData?.[chosenItems]
-    console.log('allItems: ', allItems)
     const [theItems, setItems] = useState(allItems)
-    const [itemId, setitemId] = useState(null)
+    const [selectedItem, setSelectedItem] = useState(null)
     const [error, setError] = useState(null);
-    
-    useEffect(()=>{
-        if(userId&&itemId && itemId!='' && pathname.endsWith('items')){
-            const item_page = AppPages.find(page=>page.name === 'Items').path
-            const next_page = `${userId}${item_page}/${itemId}`
-            console.log(next_page)
-            router.push(next_page)
-        }
-    }, [userId, itemId])
     useEffect(() => {
         const to_be = appData?.[chosenItems] || []
         if(to_be !== theItems){
@@ -66,11 +53,9 @@ const Home = ({ userType, appData , userId}) => {
         setSearchQuery(e.target.value);
     };
 
-    const handleselected = (_id)=>{
-        setLocalStorageProp_('selectedItem', _id)
-        setitemId(_id)
-        console.log('clicked')
-        console.log('_id:', _id)
+    const handleselected = (item)=>{
+        setLocalStorageProp_('selectedItem', item)
+        setSelectedItem(item)
     }
     const theBody = ()=>{
         return(
@@ -78,7 +63,7 @@ const Home = ({ userType, appData , userId}) => {
                 {allItems && (
                     theItems && theItems.length >0?(
                         theItems.map((item, index) => (
-                            <tr key={item._id} onClick={()=> handleselected(item._id)}>
+                            <tr key={item._id} onClick={()=> handleselected(item)}>
                                 <td>{index+1}</td>
                                 <td>
                                     <span><Image src={item?.image} alt="item" width={50} height={50} /></span>
@@ -103,65 +88,74 @@ const Home = ({ userType, appData , userId}) => {
         )
     }
 
-    const selectItems =()=>{
-        const selection__ = {
-            'All':'all_items', 'In stock': 'unsold_items','New':'new_items', 'Sold':'sold_items'
-        }
+    const returnAllItems = ()=>{
         return(
-            <>
-                {
-                    Object.keys(selection__).map((keey, index)=>(
-                        <div key={index} className={chosenItems===selection__?.[keey]?styles.active:''} onClick={()=>setChosenItems(selection__[keey])}>
-                            {keey}
-                        </div>
-                    ))
-                }
-            </>
+            <table>
+                <thead>
+                    <tr>
+                        <th>S.No</th><th>Item</th>
+                        <th>Amount</th><th>Seller</th>
+                        {chosenItems==='sold_items'&&(<th>Buyer</th>)}
+                        <th>Status</th>
+                        <th>                            
+                            {chosenItems==='new_items'?'Added Date':'Last Modified'}
+                        </th>
+                    </tr>
+                    <tr><td colSpan='11'><hr/></td></tr>
+                </thead>
+                <tbody>{theBody()}</tbody>
+            </table>
         )
     }
+    const item_types = {
+        'All':'all_items', 'In stock': 'unsold_items','New':'new_items', 'Sold':'sold_items'
+    }
+
     return (
-        <Layout userId={userId} add_route = '/items/add' main_page = 'true' page_name = 'Items List'>
-            <div className={styles.SearchBar}>
-                <article className={styles.button}>
-                    {selectItems()}
-                </article>
-                <article>Number of items: {theItems?.length}</article>
-                <input
-                    type="text"
-                    placeholder="Search by vehicle, driver, date"
-                    value={searchQuery}
-                    onChange={handleSearch}
-                />
+        <Layout userId={userId} add_route = '/items/add' main_page = 'true' page_name={selectedItem?'Items Details':'Items List'}>
+            {
+                <div className={styles.SearchBar}>
+                    <article className={styles.button}>
+                        {        
+                            selectedItem?(
+                                <button onClick={()=>setSelectedItem(null)}>back</button>
+                            ):(
+                                Object.keys(item_types).map((keey, index)=>(
+                                    <div key={index} className={chosenItems===item_types?.[keey]?styles.active:''} onClick={()=>setChosenItems(item_types[keey])}>
+                                        {keey}
+                                    </div>
+                                ))
+                            )
+                        }
+                    </article>
+                    {!selectedItem &&(
+                        <>
+                            <article>Number of items: {theItems?.length}</article>
+                            <input
+                                type="text"
+                                placeholder="Search by vehicle, driver, date"
+                                value={searchQuery}
+                                onChange={handleSearch}
+                            />
+                        </>
+                    )}
+                </div>
+            }
+            <div className={`${styles.page} ${selectedItem ? styles.specific : styles.index}`}>
+                    {selectedItem?ReturnItem(selectedItem):returnAllItems()}
             </div>
-            <div className={`${styles.page} ${styles.index}`}>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>S.No</th>
-                            <th>Item</th>
-                            <th>Amount</th>
-                            <th>Seller</th>
-                            {chosenItems==='sold_items'&&(<th>Buyer</th>)}
-                            <th>Status</th>
-                            <th>                            
-                                {chosenItems==='new_items'?'Added Date':'Last Modified'}
-                            </th>
-                        </tr>
-                        <tr><td colSpan='11'><hr/></td></tr>
-                    </thead>
-                    <tbody>
-                        {theBody()}
-                    </tbody>
-                </table>
-            </div>
-            <div className={componentStyles.pageNav}>
-                <article>
-                    Previous
-                </article>
-                <aside>
-                    Next
-                </aside>
-            </div>
+            {
+                !selectedItem&&(
+                    <div className={componentStyles.pageNav}>
+                        <article>
+                            Previous
+                        </article>
+                        <aside>
+                            Next
+                        </aside>
+                    </div>
+                )
+            }
         </Layout>
     );
 };
