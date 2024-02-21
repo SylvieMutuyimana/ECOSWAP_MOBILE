@@ -8,9 +8,12 @@ export default async function Signup(req, res) {
     if (req.method === "POST") {
         try {
             if (req.body['email']) {
-                const existingUser = await User.findOne({ email: req.body['email'] });
-                if (existingUser) {
-                    return res.status(200).json({ message: 'User exists' });
+                const existingEmail = await User.findOne({ email: req.body['email'] }) ;
+                const existingPhoneNumber = await User.findOne({ email: req.body['phoneNumb'] }) ;
+                if (existingEmail) {
+                    return res.status(200).json({ message: 'User with email exists' });
+                }if (existingPhoneNumber) {
+                    return res.status(200).json({ message: 'User with phone number exists' });
                 } else {
                     if (!req.body['password']) {
                         return res.status(500).json({

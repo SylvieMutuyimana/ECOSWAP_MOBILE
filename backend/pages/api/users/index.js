@@ -1,6 +1,7 @@
 //User.js
 import dbConnect from "../../../utils/dbConnect";
 import User from "../../../models/users";
+import Signup from "../signup";
 
 dbConnect();
 
@@ -12,6 +13,8 @@ export default async function handler(req, res) {
         } catch (error) {
             res.status(500).json({ message: 'Error retrieving user', error: error.message });
         }
+    }else if(req.method === "POST"){
+        Signup(req, res)
     }else if(req.method === 'DELETE'){
         try {
             const { type } = req.body;

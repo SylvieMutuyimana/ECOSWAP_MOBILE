@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../assets/styles/styles.dart';
+import '../../assets/styles/styles.dart';
 
 class FooterWidget extends StatelessWidget {
   final int selectedIndex;

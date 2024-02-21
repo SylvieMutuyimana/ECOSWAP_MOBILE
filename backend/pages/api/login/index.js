@@ -14,16 +14,12 @@ export default async function Login(req, res) {
             console.log('Received email:', email);
             console.log('Received password:', password);
             if (!email) {
-                return res.status(401).json({ message: 'Email missing' });
+                return res.status(401).json({ message: 'Enter email' });
             }
-            // Check if the user exists
-            const user = await User.findOne({ email });
-
+            const user = await User.findOne({ email })
             if (!user) {
                 return res.status(401).json({ message: 'Account does not exist' });
             }
-
-            // Verify the password
             if (!password) {
                 return res.status(401).json({ message: 'Password missing' });
             }
@@ -35,14 +31,14 @@ export default async function Login(req, res) {
                 return res.status(401).json({ message: 'Wrong password for the email' });
             } else {
                 try {
-                        // Generate a JWT token for authentication
-                        const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
-                            expiresIn: '1h', 
-                        });
-                        const the_user = {_id: user._id, type: user.type}
-                        res.status(200).json({ message: 'Login successful', the_user , token });
-                    } catch (error) {
-                        res.status(500).json({ message: `error: ${error}` });
+                    // Generate a JWT token for authentication
+                    const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
+                        expiresIn: '20d', 
+                    });
+                    const the_user = {_id: user._id, type: user.type}
+                    res.status(200).json({ message: 'Login successful', the_user , token });
+                } catch (error) {
+                    res.status(500).json({ message: `error: ${error}` });
                 }
             }
         } catch (error) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../assets/styles/styles.dart';
+import '../../assets/styles/styles.dart';
 
 class HeaderWidget extends StatelessWidget implements PreferredSizeWidget {
   final String pageTitle;

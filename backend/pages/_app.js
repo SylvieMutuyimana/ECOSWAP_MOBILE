@@ -6,26 +6,26 @@ import '../styles/global.css';
 import AppLayout from './Layout';
 import {getUserFromLocalStorage} from '../components/localStorage';
 import { RotatingPage } from '../components/navigation/rotatingPage';
-import {startComponents_ } from '../components/sampledata/some_components_';
+import { fetchData } from '../components/data/collectData';
 
 function App({ Component, pageProps }) {
   const router = useRouter()
   const { pathname } = useRouter();
   console.log('pathname:', pathname)
-  const starting_Components = startComponents_
   const [userDetails, setUserDetails] = useState(null);
   const [userId, setUserID] = useState(null);
   const [loading, setLoading] = useState(true);
   const [loadingData, setLoadingData] = useState(true);
   const returnPath = (the_name)=> AppPages.find(page=>page.name === the_name)?.path
-  /*const [appData, setappData] = useState({
-    all_items: 'nullData', sold_items: 'nullData', un_sold_items: 'nullData',
-    categories: 'nullData', users: 'nullData'
+  //const [appData, setappData] = useState(starting_Components)
+  //const [orgDetails, setOrgDetails] = useState(starting_Components.organisation)
+  const [appData, setappData] = useState({
+    all_items: null, sold_items: null, un_sold_items: null,
+    categories: null, users: null
   })
-  const [orgDetails, setOrgDetails] = useState(org_details)
-  */
-  const [appData, setappData] = useState(starting_Components)
-  const [orgDetails, setOrgDetails] = useState(starting_Components.organisation)
+  console.log('appData: ', appData)
+  const [orgDetails, setOrgDetails] = useState(null)
+  
   const indexPage= ['/', '']
   const authLinks= ['Login', 'Signup']
   const anAuthPage =()=>{
@@ -71,7 +71,7 @@ function App({ Component, pageProps }) {
         setUserDetails(the_user)
         setUserID(the_user._id)
       }
-    }else if (pathname!== !anAuthPage) {
+    }else if (pathname!== !anAuthPage && !(pathname.startsWith('api'))) {
       console.log('authentication page')
       router.push('')
     }
@@ -80,8 +80,9 @@ function App({ Component, pageProps }) {
   useEffect(()=>{
     console.log('checking loading')
     if(loadingData && userId && userDetails){
-      //const the_data = fetchData()
-      const the_data = starting_Components
+      const the_data = fetchData()
+      //const the_data = starting_Components
+      console.log('fetch the data')
       setappData(the_data)
       setOrgDetails(the_data.organisation)
     }

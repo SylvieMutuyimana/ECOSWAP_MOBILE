@@ -1,11 +1,8 @@
-//main.dart
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'assets/components/loading_page.dart';
-import 'auth/login_page.dart';
+import 'assets/components/theme_data.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -14,11 +11,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      title: 'E-Commerce App',
+      theme: appTheme(),
+      home: HomePage(), 
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('E-Commerce App'),
       ),
-      home: const LoadingPage(), // Set the initial page to LoadingPage
+      body: Center(
+        child: Text('Welcome to the E-Commerce App!'),
+      ),
     );
   }
 }

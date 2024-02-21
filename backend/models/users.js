@@ -10,9 +10,8 @@ const cartSchema = [{
 
 const UserSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
-    email: { type: String, required: true },
-    phoneNumb: { type: String, required: true },
+    email: { type: String, required: false },
+    phoneNumb: { type: String, required: false },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     password: { type: String, required: true },

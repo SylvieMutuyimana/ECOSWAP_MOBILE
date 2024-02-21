@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
       pageTitle: _selectedPageName,
       onMenuItemSelected: (selectedItem) {
         // Handle navigation based on the selected menu item
-        final selectedPage = NavigatePages.getPage(selectedItem);
+        final selectedPage = NavigatePages.getPage(selectedItem, userId);
         if (selectedPage != null) {
           Navigator.push(
             context,
@@ -42,7 +42,6 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     ),
-
       bottomNavigationBar: FooterWidget(
         selectedIndex: _selectedIndex,
         onTabTapped: (index, pageName) {

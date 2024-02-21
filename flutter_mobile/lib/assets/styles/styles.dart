@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AppStyles {
-  static final Color footerColor = Color(0xFF084A07);
+  static final Color footerColor = Color(0xFF063E2A);
   static final Color headerColor = Color(0xFFC16802);
   static final Color formBackgroundColor = Color(0xFFC0C0C0);
   static final Color textColor = Colors.white;
   static final Color buttonDefaultColor = Colors.black;
-  static final Color buttonHoverColor = Colors.grey;
+  static final Color buttonHoverColor = Color(0xFF063E2A);
+
 
   static final TextStyle headingStyle = TextStyle(
     fontSize: 24,
@@ -21,9 +22,8 @@ class AppStyles {
 
   static final InputDecoration inputDecoration = InputDecoration(
     filled: true,
-    fillColor: formBackgroundColor,
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(10),
     ),
   );
 
@@ -39,14 +39,18 @@ class AppStyles {
     foregroundColor: MaterialStateProperty.resolveWith<Color>(
       (Set<MaterialState> states) {
         if (states.contains(MaterialState.hovered)) {
-          return Colors.black;
+          return Colors.white; // Change text color to white when hovered
         }
-        return Colors.white;
+        return Colors.white; // Default text color
       },
     ),
     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-      EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+      EdgeInsets.symmetric(vertical: 20, horizontal: 90),
     ),
-    overlayColor: MaterialStateProperty.all<Color>(Colors.white),
+    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    ),
   );
 }
