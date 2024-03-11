@@ -1,5 +1,6 @@
 # Ignore node_modules and package-lock.json in any app
 **/node_modules/
+**/node_modules/
 **/package-lock.json
 
 # Ignore Gradle files
