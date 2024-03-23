@@ -32,9 +32,7 @@ export default async function the_handler(name, the_module, fields, req, res) {
       }
       
     } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Error creating item", error: error.message });
+      res.status(500).json({ message: "Error creating item", error: error.message });
     }
   } else if (req.method === "GET") {
     try {
