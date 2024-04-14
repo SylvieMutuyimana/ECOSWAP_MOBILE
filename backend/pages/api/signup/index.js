@@ -45,7 +45,7 @@ export default async function Signup(req, res) {
                             await newUser.save();
                             console.log('new: ', newUserData);
                             return res.status(201).json({
-                                message: `${newUserData.type} created successfully for ${newUser}`,
+                                message: `${newUserData.type} created successfully`,
                                 newUser: newUser
                             });
                         } else {
